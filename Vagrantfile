@@ -13,6 +13,12 @@ Vagrant.configure("2") do |config|
   # doesn't already exist on the user's system.
   config.vm.box_url = "http://files.vagrantup.com/precise32.box"
 
+  config.vm.provision :chef_solo do |chef|
+    chef.cookbooks_path = "cookbooks"
+    chef.add_recipe("apt")
+    chef.add_recipe("couchdb")
+end
+
   # sudo apt-get update
   # sudo apt-get install couchdb -y
 
