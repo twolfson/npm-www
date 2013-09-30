@@ -1,9 +1,9 @@
 <%- include('header.ejs', locals) %>
 <h1>Search Results</h1>
 
-<% if (hits && hits.total > 0) {%>
+<% if (search.hits && search.hits.total > 0) {%>
 <ul class="search-results">
-  <% hits.hits.forEach(function(hit) { %>
+  <% search.hits.hits.forEach(function(hit) { %>
   <li class="search-result package">
     <h2><a href="/package/<%= encodeURI(hit.fields.name) %>"><%= sanitize(hit.fields.name) %></a></h2>
     <p class="details">
@@ -25,14 +25,14 @@
 </ul>
 
 <p class="description">
-  <% if (page > 1) { %>
-    <a href="/search?q=<%= q %>&page=<%= page - 1 %>">&larr; previous</a>
-  <% }  else if (page === 1) { %>
-    <a href="/search?q=<%= q %>">&larr; previous</a>
+  <% if (search.page > 1) { %>
+    <a href="/search?q=<%= search.q %>&page=<%= search.page - 1 %>">&larr; previous</a>
+  <% }  else if (search.page === 1) { %>
+    <a href="/search?q=<%= search.q %>">&larr; previous</a>
   <% } %>
-  Page <%= page + 1 %>
-  <% if (hits.total >= (pageSize*page + pageSize)) { %>
-    <a href="/search?q=<%= q %>&page=<%= page + 1 %>">next &rarr;</a>
+  Page <%= search.page + 1 %>
+  <% if (search.hits.total >= (search.pageSize*search.page + search.pageSize)) { %>
+    <a href="/search?q=<%= search.q %>&page=<%= search.page + 1 %>">next &rarr;</a>
   <% } %>
 </p>
 

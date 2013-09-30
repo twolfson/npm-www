@@ -22,8 +22,8 @@
     <div id="page">
       <header>
         <form action="/search" method="get">
-          <% if (typeof q !== 'undefined') { %>
-          <input name=q type="search" placeholder="Search Packages" value="<%= sanitize(q) %>" tabindex="1">
+          <% if (typeof search !== 'undefined' && typeof search.q !== 'undefined') { %>
+          <input name=q type="search" placeholder="Search Packages" value="<%= sanitize(search.q) %>" tabindex="1">
           <% } else { %>
           <input name=q type="search" placeholder="Search Packages" tabindex="1">
           <% } %>

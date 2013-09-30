@@ -44,12 +44,17 @@ function search (req, res) {
     qs = querystring.parse(u)
   }
 
+  req.model.load('profile', req)
   req.model.load('search', qs)
   req.model.end(function(er, m) {
+    var locals = {
+      profile: m.profile,
+      search: m.search
+    }
     if (er)
       res.error(er)
     else
-      res.template('search.ejs', m.search)
+      res.template('search.ejs', locals)
   })
 
   searches.push(qs.q)
