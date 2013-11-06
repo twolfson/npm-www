@@ -53,7 +53,7 @@ function handleForm (req, res) {
         if (data)
           res.cookies.set('name', data.name)
 
-        if (data.mustChangePass) {
+        if (data && data.mustChangePass) {
           return res.redirect('/password')
         }
 
