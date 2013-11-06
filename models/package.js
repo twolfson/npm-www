@@ -37,6 +37,9 @@ function package (params, cb) {
   // version = version || 'latest'
   version = version || ''
 
+  if (name !== encodeURIComponent(name))
+    return cb(new Error('invalid package name'))
+
   var k = name + '/' + version
   , data = regData.get(k)
 
