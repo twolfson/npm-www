@@ -99,6 +99,9 @@ Object.keys(admin).forEach(function (k) {
 
 if (module === require.main) {
   // just show the configs
-  console.log(exports)
+  if (process.argv[2])
+    console.log(exports[process.argv[2]])
+  else
+    console.log(exports)
   process.exit(0)
 }
