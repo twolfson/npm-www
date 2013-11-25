@@ -254,7 +254,7 @@ function login (req, res, cb) {
   var u = req._originalUrl || req.url
   req.model.load('profile', req, true)
   req.model.end(function (er, m) {
-    if (er)
+    if (er || !m.profile)
       return req.session.set('done', u, function () {
         res.redirect('/login')
       })

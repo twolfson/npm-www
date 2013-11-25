@@ -26,9 +26,9 @@ if (m) location.replace('/package' + m[0].substr(1))
       <header>
         <form action="/search" method="get">
           <% if (typeof q !== 'undefined') { %>
-          <input name=q type="search" placeholder="Search Packages" value="<%= sanitize(q) %>">
+          <input name=q type="search" placeholder="Search Packages" value="<%= sanitize(q) %>" tabindex="1">
           <% } else { %>
-          <input name=q type="search" placeholder="Search Packages">
+          <input name=q type="search" placeholder="Search Packages" tabindex="1">
           <% } %>
         </form>
         <h1>

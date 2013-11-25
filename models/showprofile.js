@@ -25,7 +25,7 @@ function showprofile (name, cb) {
 }
 
 function transform (data) {
-  if (!data) return data
+  if (!data || typeof data !== 'object') return data
   var d = Object.keys(data).reduce(function (s, k) {
     s[k] = data[k]
     return s

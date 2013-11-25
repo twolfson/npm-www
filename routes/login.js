@@ -50,9 +50,10 @@ function handleForm (req, res) {
         req.session.set("profile", data)
 
         // just a convenience.
-        res.cookies.set('name', data.name)
+        if (data)
+          res.cookies.set('name', data.name)
 
-        if (data.mustChangePass) {
+        if (data && data.mustChangePass) {
           return res.redirect('/password')
         }
 
