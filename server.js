@@ -4,6 +4,10 @@ var config = require('./config.js')
 , clusterConf = config.cluster || {}
 clusterConf.exec = worker
 
+// Dumping giant buffers to Bunyan is always wrong
+Buffer.prototype.toJSON = Buffer.prototype.inspect
+
+
 process.stdout.on('error', function (er) {
   if (er.code === 'EPIPE') return
   throw er

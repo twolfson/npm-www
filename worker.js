@@ -12,6 +12,9 @@ if (cluster.isMaster) {
   throw new Error("should only be invoked as cluster worker")
 }
 
+// Dumping giant buffers to Bunyan is always wrong
+Buffer.prototype.toJSON = Buffer.prototype.inspect
+
 var config = require("./config.js")
 , http = require("http")
 , https = require("hardhttps")
