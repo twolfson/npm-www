@@ -90,6 +90,12 @@ function decorate (req, res, config) {
   d.add(req)
   d.add(res)
   d.on("error", function (er) {
+    if (er.domainEmitter) {
+      var c = er.domainEmitter.constructor
+      if (c)
+        c = c.name
+      er.domainEmitter = c || '[unknown]'
+    }
     delete er.domain_emitter
     delete er.domain
     logger.error({ error: er }, er.stack)
