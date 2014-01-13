@@ -1,7 +1,7 @@
 module.exports = indexPage
 
 var lastUpdated
-var interval = 1000
+var interval = 10000
 var cache = {}
 var browse = require('../models/browse.js')
 var recentauthors = require('../models/recentauthors.js')
@@ -48,6 +48,7 @@ function indexPage (req, res) {
   if (!loading && (Date.now() - lastUpdated > interval)) load()
 
   req.model.load('root')
+
   // Show download count for the last week and month.
   // since the current day might not be done loading, back up an extra
   // day as well.
@@ -55,9 +56,9 @@ function indexPage (req, res) {
   var month = Date.now() - 1000 * 60 * 60 * 24 * 31
   var week = Date.now() - 1000 * 60 * 60 * 24 * 8
   var end = Date.now() - 1000 * 60 * 60 * 24
-  req.model.loadAs('downloads', 'dlDay', end, end, name, false)
-  req.model.loadAs('downloads', 'dlWeek', week, end, name, false)
-  req.model.loadAs('downloads', 'dlMonth', month, end, name, false)
+  //req.model.loadAs('downloads', 'dlDay', end, end, name, false)
+  //req.model.loadAs('downloads', 'dlWeek', week, end, name, false)
+  //req.model.loadAs('downloads', 'dlMonth', month, end, name, false)
 
   req.model.load('profile', req)
 
@@ -72,9 +73,9 @@ function indexPage (req, res) {
       authors: cache.authors || [],
       starred: cache.starred || [],
       depended: cache.depended || [],
-      dlDay: commaIt(m.dlDay),
-      dlMonth: commaIt(m.dlMonth),
-      dlWeek: commaIt(m.dlWeek),
+      dlDay: commaIt(m.dlDay || 0),
+      dlMonth: commaIt(m.dlMonth || 0),
+      dlWeek: commaIt(m.dlWeek || 0),
       totalPackages: dcWComma
     }
     res.template("index.ejs", locals)
