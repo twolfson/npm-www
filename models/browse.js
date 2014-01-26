@@ -134,6 +134,10 @@ function browse (type, arg, skip, limit, cb) {
 
   if (type === 'updated') query.descending = true
 
+  // We are always ok with getting stale data, rather than wait for
+  // couch to generate new view data.
+  query.stale = 'ok'
+
   u += '?' + qs.stringify(query)
 
   npm.registry.get(u, function (er, data, res) {

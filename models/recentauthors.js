@@ -24,6 +24,11 @@ var cache = new AC({
     var start = new Date(Date.now() - age - day)
     var startkey = [start.toISOString().substr(0, 10)]
     query.startkey = JSON.stringify(startkey)
+
+    // We are always ok with getting stale data, rather than wait for
+    // couch to generate new view data.
+    query.stale = 'ok'
+
     u += qs.stringify(query)
     npm.registry.get(u, function (er, data, res) {
       if (!er && !data.rows) {
