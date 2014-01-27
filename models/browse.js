@@ -136,7 +136,7 @@ function browse (type, arg, skip, limit, cb) {
 
   // We are always ok with getting stale data, rather than wait for
   // couch to generate new view data.
-  query.stale = 'ok'
+  query.stale = 'update_after'
 
   u += '?' + qs.stringify(query)
 

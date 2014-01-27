@@ -27,7 +27,7 @@ var cache = new AC({
 
     // We are always ok with getting stale data, rather than wait for
     // couch to generate new view data.
-    query.stale = 'ok'
+    query.stale = 'update_after'
 
     u += qs.stringify(query)
     npm.registry.get(u, function (er, data, res) {
