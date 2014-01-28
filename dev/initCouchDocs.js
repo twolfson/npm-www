@@ -5,8 +5,7 @@ var request = require('request')
 var ddocs =
   [ 'registry/_design/app',
     'registry/_design/ghost',
-    'registry/_design/scratch',
-    'registry/error%3A%20forbidden' ]
+    'registry/_design/scratch' ]
 
 function replicateDdocs (callback) {
   var ddoc = ddocs.pop()
@@ -15,7 +14,7 @@ function replicateDdocs (callback) {
     return
   }
 
-  request({ url: 'http://isaacs.iriscouch.com/' + ddoc, json: true }, then)
+  request({ url: 'https://skimdb.npmjs.com/' + ddoc, json: true }, then)
   function then (er, res, body) {
     if (er) throw er
     if (res.statusCode !== 200) {

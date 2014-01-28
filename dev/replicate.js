@@ -43,7 +43,7 @@ var userTimer
 function replicatePackages () {
   console.error('replicate packages (around 1/256th of the registry)')
   new Replicator({
-    from: 'http://isaacs.iriscouch.com/registry',
+    from: 'https://skimdb.npmjs.com/registry',
     to: 'http://admin:admin@localhost:15984/registry',
     filter: filterPackage
   }).push(function () {
@@ -58,7 +58,7 @@ function replicateUsers () {
   didUsers = true
   console.error('replicate users')
   new Replicator({
-    from: 'http://isaacs.iriscouch.com/public_users',
+    from: 'https://skimdb.npmjs.com/public_users',
     to: 'http://admin:admin@localhost:15984/public_users',
     filter: filterUser
   }).push(function () {
@@ -77,7 +77,7 @@ function morePackages () {
   didMorePackages = true
   console.error('even more packages (around 1/16th of the registry)')
   new Replicator({
-    from: 'http://isaacs.iriscouch.com/registry',
+    from: 'https://skimdb.npmjs.com/registry',
     to: 'http://admin:admin@localhost:15984/registry',
     filter: filterPackageMore
   }).push(function () {
@@ -85,7 +85,7 @@ function morePackages () {
   })
 
   new Replicator({
-    from: 'http://isaacs.iriscouch.com/downloads',
+    from: 'https://skimdb.npmjs.com/downloads',
     to: 'http://admin:admin@localhost:15984/downloads'
   }).push(function () {
     // this one we just let continue indefinitely.
