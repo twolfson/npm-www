@@ -8,6 +8,7 @@
 //
 // These only change daily.
 
+
 module.exports = downloads
 
 var AC = require('async-cache')
@@ -39,6 +40,9 @@ function downloads (start, end, pkg, detail, cb) {
   if (typeof cb !== 'function')
     cb = start, start = null
 
+  return process.nextTick(function() {
+    cb(null, 0)
+  })
   var k = JSON.stringify([start, end, pkg, detail])
   cache.get(k, cb)
 }
