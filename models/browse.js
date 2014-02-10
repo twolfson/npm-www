@@ -148,6 +148,11 @@ function browse (type, arg, skip, limit, cb) {
     var cbs = fetching[key]
     delete fetching[key]
     cbs.forEach(function (cb) {
+      if (er) {
+        console.error("Error fetching browse data", er)
+        data = []
+        er = null
+      }
       cb(er, data)
     })
   })
