@@ -84,7 +84,7 @@
       }
       %>
       <tr>
-        <th>Repository</td>
+        <th>Repository</th>
         <td>
           <% if (gh) { %><a href="<%= gh %>"><% } %>
           <%= package.repository.url %><% if (gh) { %></a><% } %>
@@ -94,7 +94,7 @@
       <% } %>
       <% if (typeof package.homepage === 'string') { %>
       <tr>
-        <th>Homepage</td>
+        <th>Homepage</th>
         <td>
           <a href="<%= encodeURI(package.homepage) %>"><%= package.homepage.replace(/</g, '&lt;') %></a>
         </td>
@@ -102,7 +102,7 @@
       <% } %>
       <% if (package.bugs && package.bugs.url) { %>
       <tr>
-        <th>Bugs</td>
+        <th>Bugs</th>
         <td>
           <a href="<%= package.bugs.url %>"><%= package.bugs.url %></a>
         </td>
