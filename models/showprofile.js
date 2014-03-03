@@ -64,6 +64,10 @@ function loadFields (profile) {
         query: u.query_,
         hash: u.fragment_
       }
+
+      // special treatment for email addresses
+      if (u.protocol === 'mailto:') u.host = ''
+
       u = url.parse(url.format(u))
       return (!u || !u.href || !urlTest || !urlTest(u)) ? '' : u.href
     }) || ''
