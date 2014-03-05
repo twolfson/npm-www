@@ -41,7 +41,8 @@
     "stylus": "git://github.com/LearnBoost/stylus.git",
     "templar": "~0.2",
     "http-https": "~1.0.0",
-    "raygun": "^0.4.1"
+    "raygun": "^0.4.1",
+    "zag-agent": "0.0.1"
   },
   "bundleDependencies": [
     "async-cache",
