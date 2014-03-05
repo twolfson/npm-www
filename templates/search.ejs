@@ -11,7 +11,7 @@
       <a href="/~<%= hit.fields.author %>"><%= hit.fields.author %></a>
     </p>
     <p><%= sanitize(hit.fields.description) %></p>
-    <% if (hit.fields.keywords.length) { %>
+    <% if (hit.fields && hit.fields.keywords && hit.fields.keywords.length) { %>
     <ul class="keywords">
       <% hit.fields.keywords.forEach(function(keyword, idx) { %>
         <li>
