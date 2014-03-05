@@ -30,7 +30,7 @@ function star (req, res) {
       }
 
       req.couch.put(pm, data, function (er, cr, data) {
-        if (er || data.error) { 
+        if (er || data.error) {
           // this means the user's session has expired
           er = er || new Error(data.error)
           er.response = data

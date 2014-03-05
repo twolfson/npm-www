@@ -1,0 +1,10 @@
+<% if(month && month.length > 1) { %>
+
+<div class="downloads-chart">
+  <div class="graph">
+    <div id="download-chart" data-graph-points="<%= JSON.stringify(month) %>"></canvas>
+  </div>
+  <div class="day"><%- month[month.length-1].downloads %> downloads yesterday</div>
+</div>
+
+<% } %>

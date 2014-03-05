@@ -11,41 +11,23 @@ var LRU = require("lru-cache")
 , npm = require("npm")
 , moment = require('moment')
 , url = require('url')
-, ghurl = require('github-url-from-git')
 
-function urlPolicy (pkgData) {
-  var gh = pkgData && pkgData.repository ? ghurl(pkgData.repository.url) : null
-  return function (u) {
-    if (u.scheme_ === null && u.domain_ === null) {
-      if (!gh) return null
-      // temporary fix for relative links in github readmes, until a more general fix is needed
-      var v = url.parse(gh)
-      if (u.path_) { v.pathname = v.pathname + '/blob/master/' + u.path_} 
-      u = {
-        protocol: v.protocol,
-        host: v.host,
-        pathname: v.pathname,
-        query: u.query_,
-        hash: u.fragment_
-      }
-    } else {
-      u = {
-        protocol: u.scheme_ + ':',
-        host: u.domain_ + (u.port_ ? ':' + u.port_ : ''),
-        pathname: u.path_,
-        query: u.query_,
-        hash: u.fragment_
-      }
-    }
-    u = url.parse(url.format(u))
-    if (!u) return null
-    if (u.protocol === 'http:' &&
-        (u.hostname && u.hostname.match(/gravatar.com$/))) {
-      // use encrypted gravatars
-      return url.format('https://secure.gravatar.com' + u.pathname)
-    }
-    return url.format(u)
+function urlPolicy (u) {
+  u = {
+    protocol: u.scheme_ + ':',
+    host: u.domain_ + (u.port_ ? ':' + u.port_ : ''),
+    pathname: u.path_,
+    query: u.query_,
+    hash: u.fragment_
   }
+  u = url.parse(url.format(u))
+  if (!u) return null
+  if (u.protocol === 'http:' &&
+      (u.hostname && u.hostname.match(/gravatar.com$/))) {
+    // use encrypted gravatars
+    return url.format('https://secure.gravatar.com' + u.pathname)
+  }
+  return url.format(u)
 }
 
 function package (params, cb) {
@@ -127,9 +109,9 @@ function parseReadme (data) {
           .replace(/&/g, '&amp;')
           .replace(/</g, '&lt;')
           .replace(/>/g, '&gt;')
-    p = sanitizer.sanitize(p, urlPolicy(p))
+    p = sanitizer.sanitize(p, urlPolicy)
   }
-  return sanitizer.sanitize(p, urlPolicy(data))
+  return sanitizer.sanitize(p, urlPolicy)
 }
 
 function gravatarPeople (data) {
