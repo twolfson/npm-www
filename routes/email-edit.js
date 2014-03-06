@@ -129,11 +129,11 @@ function handle (req, res) {
 }
 
 function handle_ (req, res, profile, email2) {
-  var confTok = crypto.randomBytes(18).toString('base64')
+  var confTok = crypto.randomBytes(18).toString('hex')
   var confHash = sha(confTok)
   var confKey = 'email_change_conf_' + confHash
   var confLink = '/email-edit/confirm/' + confHash
-  var revTok = crypto.randomBytes(18).toString('base64')
+  var revTok = crypto.randomBytes(18).toString('hex')
   var revHash = sha(revTok)
   var revLink = '/email-edit/revert/' + revHash
   var revKey = 'email_change_rev_' + revHash
