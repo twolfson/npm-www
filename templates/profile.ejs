@@ -28,12 +28,21 @@
   <%
   fields.forEach(function (field) {
     if (field.show) {
-      %>
-      <tr>
-        <th><%= field.title %></th>
-        <td><%- field.show || '' %></td>
-      </tr>
+      if (field.name === 'email') {
+        var map = Array.prototype.map
+        var obfuscatedEmail = map.call(field.value, function (x) { return '%' + x.charCodeAt(0).toString(16) }).join('') 
+        %>
+        <tr>
+          <th><%= field.title %></th>
+          <td id="email" data-email="<%= obfuscatedEmail %>">[email]</td>
+        </tr>
+      <% } else { %>
+        <tr>
+          <th><%= field.title %></th>
+          <td><%- field.show || '' %></td>
+        </tr>
       <%
+      }
     }
   })
   %>
@@ -101,3 +110,4 @@
 </div>
 
 <%- include('footer.ejs', locals) %>
+<script src="/static/emObf.js" async="true"></script>
