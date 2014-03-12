@@ -26,6 +26,16 @@ var ErrorPage = require("error-page")
 , MC = require('./models.js')
 , http = require('http')
 
+
+function ErrorPageWithMetrics(req, res, errorPageConf) {
+  var original = ErrorPage(req, res, errorPageConf)
+  var errFunc = function WrappedErrorPage(status) {
+    req.metrics.counter('error|' + status + '|' + req.pathname)
+    original(status)
+  }
+  return errFunc
+}
+
 function errorHandler (req, res, data) {
   if (!req.profile) {
     req.model.load('profile', req)
@@ -168,7 +178,6 @@ function decorate (req, res, config) {
     req[k] = u[k]
   })
 
-  req.metrics = res.metrics = config.metricsAgent
   req.timing = {}
   req.timing.start = Date.now()
 
@@ -188,7 +197,7 @@ function decorate (req, res, config) {
 
   req.log.info({req: req, remote: remoteAddr, address: address})
 
-  res.error = ErrorPage(req, res, errorPageConf)
+  res.error = ErrorPageWithMetrics(req, res, errorPageConf)
 
   res.redirect = function (target, code) {
     res.statusCode = code || 302

@@ -168,7 +168,9 @@ function handle (req, res) {
 function lookupUserByEmail (em, req, res) {
   var couch = config.adminCouch
   , pe = '/_users/_design/_auth/_list/email/listAll?email=' + encodeURIComponent(em)
-  
+
+  req.metrics.counter('couch>view|users|auth|list|email')
+
   couch.get(pe, function PE (er, resp, data) {
     // got multiple usernames with that email address
     // show a view where we can choose the right user

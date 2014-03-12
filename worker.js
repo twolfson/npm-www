@@ -26,6 +26,8 @@ var config = require("./config.js")
 , bunyan = require('bunyan')
 , npm = require('npm')
 , fs = require('fs')
+, ZagAgent = require('zag-agent')
+, metrics
 , gitHead
 
 try {
@@ -70,6 +72,13 @@ if (config.raygunKey) {
   config.raygun = raygun
 }
 
+// metrics agent
+if (config.metrics) {
+  metrics = ZagAgent(config.metrics.collectors).scope(config.metrics.prefix)
+} else {
+  metrics = { histogram: function() {}, counter: function() {}, close: function() {} }
+}
+
 // if there's an admin couchdb user, then set that up now.
 var CouchLogin = require('couch-login')
 if (config.couchAuth) {
@@ -98,6 +107,8 @@ if (r.auth) config.redis.client.auth(r.auth)
 
 
 function wrappedSite(req, res) {
+  req.metrics = res.metrics = metrics
+
   if (!raygun) {
     return site(req, res)
   }
@@ -128,6 +139,7 @@ npm.load(npmconf, function (er) {
 
   server.listen(config.port, function () {
     logger.info("Listening on %d", config.port)
+    metrics.counter('worker|listen')
 
     // https://github.com/joyent/node/issues/3856
     cluster.isWorker = false

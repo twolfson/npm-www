@@ -11,6 +11,8 @@ function star (req, res) {
     var body = JSON.parse(inc)
 
     var pm = '/registry/' + body.name
+    req.metrics.counter('star|' + body.name);
+
     var starIt = !body.isStarred // it wasn't starred before, so the user wants to star it
 
     req.couch.get(pm + '?revs=true', function (er, cr, data) {

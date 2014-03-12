@@ -82,6 +82,8 @@ function browse (req, res) {
 
   req.model.load('profile', req)
 
+  req.metrics.counter('couch>view|browse|' + type)
+
   req.model.end(function (er, m) {
     if (er) return res.error(er)
     res.template('browse.js', {
