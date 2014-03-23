@@ -62,10 +62,16 @@ function handleForm (req, res) {
         }
 
         res.session.get('done', function (er, done) {
-          var donePath = done ? url.parse(done) : null
+          var donePath = '/profile'
+          if (done) {
+            // Make sure that we don't ever leave this domain after login
+            // resolve against a fqdn, and take the resulting pathname
+            done = url.resolveObject('https://example.com/login', done)
+            donePath = done.pathname
+          }
 
           res.session.del('done')
-          res.redirect(donePath ? donePath.pathname : '/profile')
+          res.redirect(donePath)
         })
       })
     })
