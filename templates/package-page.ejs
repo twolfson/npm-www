@@ -35,7 +35,7 @@
         <th>Last Published By</th>
         <td>
           <div class="user">
-          <a class="username" href="/~<%= package._npmUser %>"><%
+          <a class="username" href="/~<%= package._npmUser.name %>"><%
             if (package._npmUser.avatar) {
             %><img src="<%= package._npmUser.avatar %>" class="avatar">
             <% } %><%= package._npmUser.name %></a>
