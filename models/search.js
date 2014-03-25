@@ -22,7 +22,7 @@ function search(params, cb) {
   var url = config.elasticsearch.url + '/package/_search?' + querystring.stringify(qs)
 
   var payload = {
-    "fields": ["name", "keywords", "description", "author", "version", "stars", "dlScore", "dlDay"],
+    "fields": ["name", "keywords", "description", "author", "version", "stars", "dlScore", "dlDay", "dlWeek"],
     "query": {
       "function_score": {
         "query": {

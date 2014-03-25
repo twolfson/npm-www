@@ -5,15 +5,15 @@
 <ul class="search-results">
   <% search.hits.hits.forEach(function(hit) { %>
   <li class="search-result package">
-    <h2><a href="/package/<%= encodeURI(hit.fields.name) %>"><%= sanitize(hit.fields.name) %></a></h2>
+    <h2><a href="/package/<%= encodeURI(hit.fields.name) %>" title="<%= hit.fields.name %>"><%= sanitize(hit.fields.name) %></a></h2>
     <ul class="hud">
       <li class="dlScore" title="average downloads"><span
-      <% if (parseFloat(hit.fields.dlScore) > 1) { %>
-        class="dlScore dlScore-increasing" title="more downloads this week than average over this past month">
-      <% } else if (hit.fields.dlScore < 1) { %>
-        class="dlScore dlScore-decreasing" title="fewer downloads this week than average over this past month">
+      <% if (parseFloat(hit.fields.dlScore) > 1.1 && parseFloat(hit.fields.dlWeek) >= 50) { %>
+        class="dlScore dlScore-increasing" title="trending upward">
+      <% } else if (parseFloat(hit.fields.dlScore) < 0.9 && parseFloat(hit.fields.dlWeek) >= 50) { %>
+        class="dlScore dlScore-decreasing" title="trending downward">
       <% } else { %>
-        class="dlScore dlScore-steady" title="same downloads this week than average over this past month">
+        >
       <% } %>
         <%= hit.fields.dlDay || 0 %>
       </span></li>

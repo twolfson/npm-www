@@ -351,6 +351,11 @@ table.downloads {
   position:relative;
 }
 
+.search-result.package h2 {
+  width: 75%;
+  overflow: ellipsis;
+}
+
 .search-result .details {
   position: relative;
   margin-top: 5px;
@@ -364,7 +369,7 @@ table.downloads {
   // right:0;
   width: 30%;
   text-align: right;
-  float right  
+  float right
 }
 
 .search-result ul li {
@@ -380,7 +385,7 @@ table.downloads {
 .package.search-result ul.hud {
   display: block;
   width: 25%;
-  absolute top 2em right 0  
+  absolute top 2em right 0
   text-align: right
   font-size 0.9em
 
@@ -394,7 +399,7 @@ table.downloads {
       position: absolute;
       width: 10px;
       height: 10px;
-      margin-left: -17px;
+      // margin-left: -17px;
       bottom: 6px;
     }
 
@@ -402,17 +407,17 @@ table.downloads {
 
   .dlScore-increasing::after {
     background-image: url("/static/icon_up.png");
-    margin-left: 11px;
+    // margin-left: 11px;
   }
 
   .dlScore-decreasing::after {
     background-image: url("/static/icon_down.png");
-    margin-left: 11px;
+    // margin-left: 11px;
   }
 
   .dlScore-steady::after {
     background-image: url("/static/icon_right.png");
-    margin-left: 11px;
+    // margin-left: 11px;
   }
 
   .stars::before {
@@ -439,7 +444,7 @@ html body ul.search-results .package.search-result {
 
     h1 {
       font: 28px Georgia, serif;
-      margin: 0; 
+      margin: 0;
     }
   }
   .row {
@@ -521,7 +526,7 @@ html body ul.search-results .package.search-result {
     }
   }
   .star-starred {
-    color: #F7C138;  
+    color: #F7C138;
     &:before {
       content: '★ '
     }
