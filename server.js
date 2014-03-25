@@ -1,3 +1,5 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+
 var config = require('./config.js')
 , worker = require.resolve('./worker.js')
 , cluster = require('cluster')
