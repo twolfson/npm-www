@@ -12,7 +12,7 @@ exports.cluster = { size : require("os").cpus().length }
 // redis auth
 exports.redis = { host: '127.0.0.1', port: 6379 }
 
-exports.registryCouch = "https://skimdb.npmjs.com/"
+exports.registryCouch = "https://aws-west-6.skimdb.internal.npmjs.com/"
 
 // npm config settings
 exports.npm =
