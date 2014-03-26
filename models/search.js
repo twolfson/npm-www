@@ -22,32 +22,34 @@ function search(params, cb) {
   var url = config.elasticsearch.url + '/package/_search?' + querystring.stringify(qs)
 
   var payload = {
-    "fields": ["name", "keywords", "description", "author", "version", "stars", "dlScore", "dlDay", "dlWeek"],
-    "query": {
-      "function_score": {
-        "query": {
-          "multi_match": {
-            "query": params.q,
-            "fields": ["name^4", "keywords^2", "description", "readme"]
+  "fields": ["name", "keywords", "description", "author", "version", "stars", "dlScore", "dlDay", "dlWeek"], "query": {
+    "function_score": {
+      "query": {
+        "multi_match": {
+          "query": params.q,
+          "fields": ["name^4", "keywords^2", "description", "readme"]
+        }
+      },
+      "functions": [
+        {
+          "script_score": {
+            "script": "_score * (doc['dlScore'].isEmpty() ? 0 : doc['dlScore'].value)"
           }
         },
-        "functions": [
-          {
-            "script_score": {
-              "script": "_score * doc['dlScore'].value"
-            }
-          },
-          {
-            "script_score": {
-              "script": "doc['stars'].value"
-            }
+        {
+          "script_score": {
+            "script": "doc['stars'].isEmpty() ? 0 : doc['stars'].value"
           }
-        ],
-        "score_mode": "sum",
-        "boost_mode": "multiply"
-      }
+        }
+      ],
+      "score_mode": "sum",
+      "boost_mode": "multiply"
     }
   }
+}
+
+
+
 
   request.get({
     url : url,
