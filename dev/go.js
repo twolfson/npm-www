@@ -147,7 +147,7 @@ function launchWww (er) {
   }
 
   config.port = 15443
-  config.host = '192.168.33.10'
+  config.host = '127.0.0.1'
   config.httpPort = 15080
 
   config.npm = config.npm || {
@@ -167,6 +167,11 @@ function launchWww (er) {
 
   config.downloads = {
     url: "https://api.npmjs.org/downloads/"
+  }
+
+  config.metrics = {
+      collectors: [ '54.186.0.239:8877' ],
+      prefix:     'npm-www-dev'
   }
 
   config.debug = true
