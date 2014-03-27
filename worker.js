@@ -28,6 +28,7 @@ var config = require("./config.js")
 , fs = require('fs')
 , ZagAgent = require('zag-agent')
 , metrics
+, os = require('os')
 , gitHead
 
 try {
@@ -55,7 +56,7 @@ var canon = config.canon = require('canonical-host')(h, lh, 301)
 
 config.stamp = 'pid=' + process.pid + ' ' +
                'worker=' + cluster.worker.id + ' ' + gitHead + ' ' + h +
-               ' ' + process.env.SMF_ZONENAME
+               ' ' + os.hostname() + ' ' + process.env.SMF_ZONENAME
 
 config.log.worker = cluster.worker.id
 config.log.pid = process.pid
