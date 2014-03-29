@@ -142,6 +142,7 @@ function parseReadme (data) {
           .replace(/>/g, '&gt;')
     p = '<pre>' + sanitizer.sanitize(p, urlPolicy(p)) + '</pre>'
   }
+  console.error(sanitizer.sanitize + '');
   return sanitizer.sanitize(p, urlPolicy(data))
 }
 
