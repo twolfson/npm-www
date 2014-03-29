@@ -142,7 +142,9 @@ function parseReadme (data) {
           .replace(/>/g, '&gt;')
     p = '<pre>' + sanitizer.sanitize(p, urlPolicy(p)) + '</pre>'
   }
-  console.error(sanitizer.sanitize + '');
+  p = '<img src="https://travis-ci.org/twolfson/canvassmith.png?branch=master" alt="Build status">'
+  console.error('before', p);
+  console.error('after', sanitizer.sanitize(p, urlPolicy(data)));
   return sanitizer.sanitize(p, urlPolicy(data))
 }
 
