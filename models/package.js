@@ -15,6 +15,7 @@ var LRU = require("lru-cache")
 , metrics = require('../metrics-client.js')()
 
 function urlPolicy (pkgData) {
+  console.log('paaackaaaage', pkgData);
   var gh = pkgData && pkgData.repository ? ghurl(pkgData.repository.url) : null
   return function (u) {
     if (u.scheme_ === null && u.domain_ === null) {
@@ -51,6 +52,8 @@ function urlPolicy (pkgData) {
 
 function package (params, cb) {
   var name, version
+
+  console.log('helloooooooooo');
 
   if (typeof params === 'object') {
     name = params.name
