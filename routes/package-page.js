@@ -7,8 +7,6 @@ function packagePage (req, res) {
   , version = req.params.version || 'latest'
 
   // preload profile, since we load other stuff based on that
-  req.log.error('suuuup');
-  console.error('hey');
   req.model.load('profile', req)
   req.model.end(function(er,profileModel) {
     req.model.load('package', req.params)
