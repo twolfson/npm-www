@@ -17,6 +17,7 @@ var LRU = require("lru-cache")
 function urlPolicy (pkgData) {
   var gh = pkgData && pkgData.repository ? ghurl(pkgData.repository.url) : null
   return function (u) {
+    console.error('input url', u);
     if (u.scheme_ === null && u.domain_ === null) {
       if (!gh) return null
       // temporary fix for relative links in github readmes, until a more general fix is needed
@@ -45,6 +46,7 @@ function urlPolicy (pkgData) {
       // use encrypted gravatars
       return url.format('https://secure.gravatar.com' + u.pathname)
     }
+    console.error('almost output url', u);
     return url.format(u)
   }
 }
@@ -117,9 +119,9 @@ function package (params, cb) {
     if (data.readme && !data.readmeSrc) {
       data.readmeSrc = data.readme
       data.readme = parseReadme(data)
-      console.log('src', data.readmeSrc);
-      console.log('cleaned', data.readme);
     }
+    // console.error('src', data.readmeSrc);
+    // console.error('cleaned', data.readme);
     gravatarPeople(data)
     regData.set(k, data)
     return cb(null, data)
@@ -133,6 +135,7 @@ function parseReadme (data) {
        !data.readmeFilename.match(/\.$/))) {
     try {
       p = marked.parse(data.readme)
+      // console.error('output', p);
     } catch (er) {
       return 'error parsing readme'
     }
@@ -144,6 +147,8 @@ function parseReadme (data) {
           .replace(/>/g, '&gt;')
     p = '<pre>' + sanitizer.sanitize(p, urlPolicy(p)) + '</pre>'
   }
+  // console.error('wat', p);
+  // console.error('wat2', urlPolicy(data));
   return sanitizer.sanitize(p, urlPolicy(data))
 }
 
