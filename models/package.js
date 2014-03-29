@@ -38,7 +38,9 @@ function urlPolicy (pkgData) {
         hash: u.fragment_
       }
     }
+    console.error('jjjjjjjjjjjj', u);
     u = url.parse(url.format(u))
+    console.error('hhhhhhhhhhhhhhhhhhhhhhh', u);
     if (!u) return null
     if (u.protocol === 'http:' &&
         (u.hostname && u.hostname.match(/gravatar.com$/))) {
