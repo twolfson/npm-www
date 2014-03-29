@@ -38,9 +38,7 @@ function urlPolicy (pkgData) {
         hash: u.fragment_
       }
     }
-    console.error('jjjjjjjjjjjj', u);
     u = url.parse(url.format(u))
-    console.error('hhhhhhhhhhhhhhhhhhhhhhh', u);
     if (!u) return null
     if (u.protocol === 'http:' &&
         (u.hostname && u.hostname.match(/gravatar.com$/))) {
@@ -144,9 +142,6 @@ function parseReadme (data) {
           .replace(/>/g, '&gt;')
     p = '<pre>' + sanitizer.sanitize(p, urlPolicy(p)) + '</pre>'
   }
-  p = '<img src="https://travis-ci.org/twolfson/canvassmith.png?branch=master">'
-  console.error('before\n', p);
-  console.error('after\n', sanitizer.sanitize(p, urlPolicy(data)));
   return sanitizer.sanitize(p, urlPolicy(data))
 }
 
