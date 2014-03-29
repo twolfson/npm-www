@@ -46,7 +46,7 @@ function urlPolicy (pkgData) {
       // use encrypted gravatars
       return url.format('https://secure.gravatar.com' + u.pathname)
     }
-    console.error('almost output url', u);
+    // console.error('almost output url', u);
     return url.format(u)
   }
 }
@@ -149,6 +149,7 @@ function parseReadme (data) {
   }
   // console.error('wat', p);
   // console.error('wat2', urlPolicy(data));
+  console.error(sanitizer.sanitize);
   return sanitizer.sanitize(p, urlPolicy(data))
 }
 
