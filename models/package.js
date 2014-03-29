@@ -143,8 +143,8 @@ function parseReadme (data) {
     p = '<pre>' + sanitizer.sanitize(p, urlPolicy(p)) + '</pre>'
   }
   p = '<img src="https://travis-ci.org/twolfson/canvassmith.png?branch=master">'
-  console.error('before', p);
-  console.error('after', sanitizer.sanitize(p, urlPolicy(data)));
+  console.error('before\n', p);
+  console.error('after\n', sanitizer.sanitize(p, urlPolicy(data)));
   return sanitizer.sanitize(p, urlPolicy(data))
 }
 
